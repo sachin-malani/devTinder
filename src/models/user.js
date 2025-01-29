@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema(
     age: { type: Number, required: true, min: 14 },
     gender: {
       type: String,
+      required: true,
       enum: {
         values: ["M", "F", "O"],
         message: "{VALUE} is not supported",
