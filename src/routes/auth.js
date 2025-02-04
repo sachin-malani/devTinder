@@ -63,4 +63,10 @@ route.post("/login", async (req, res) => {
   }
 });
 
+route.post("/logout", (req, res) => {
+  res
+    .cookie("token", null, { expires: new Date(Date.now()) })
+    .send({ message: "Logout Successfull" });
+});
+
 module.exports = route;
