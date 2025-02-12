@@ -15,7 +15,6 @@ app.get("/", (req, res) => {
 app.use("/", router);
 
 app.use((err, req, res, next) => {
-  console.error("Error:", err.message);
   res.status(500).json({ error: err.message });
 });
 
@@ -23,7 +22,7 @@ connect()
   .then(() => {
     console.log("Database Connected Successfully 🚀🚀🚀");
     app.listen(3000, () => {
-      console.log("Server up and running 🚀🚀, aFpgDPdOFzPpqYE7");
+      console.log("Server up and running 🚀🚀");
     });
   })
   .catch((err) => {
