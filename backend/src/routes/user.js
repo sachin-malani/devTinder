@@ -1,6 +1,7 @@
 const express = require("express");
 const { userAuth } = require("../middleware/auth");
 const ConnectionRequest = require("../models/connectionRequest");
+const User = require("../models/user");
 const route = express.Router();
 
 const SELECT_FIELDS = "firstName lastName age gender about photoUrl skills";
@@ -48,6 +49,36 @@ route.get("/connections", userAuth, async (req, res) => {
         return item.toUserId;
       return item.fromUserId;
     });
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ err: error.message });
+  }
+});
+
+route.get("/feed", userAuth, async (req, res) => {
+  try {
+    const id = req.id;
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 30 ? 30 : limit;
+
+    const connectionRequest = await ConnectionRequest.find({
+      $or: [{ fromUserId: id }, { toUserId: id }],
+    }).select("fromUserId toUserId -_id");
+
+    let hideProfile = new Set();
+    connectionRequest.forEach((request) => {
+      hideProfile.add(request.fromUserId.toString());
+      hideProfile.add(request.toUserId.toString());
+    });
+
+    const result = await User.find({
+      $and: [{ _id: { $nin: Array.from(hideProfile) } }, { _id: { $ne: id } }],
+    })
+      .select(SELECT_FIELDS)
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     res.json(result);
   } catch (error) {

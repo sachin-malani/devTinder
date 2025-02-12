@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../utils/validation");
 
 const userSchema = mongoose.Schema(
   {
@@ -68,7 +67,7 @@ userSchema.methods.verifyPassword = async function (userPasswordInput) {
 };
 
 userSchema.methods.getJWT = async function () {
-  const token = await jwt.sign({ id: this._id }, JWT_SECRET, {
+  const token = await jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "4d",
   });
   return token;

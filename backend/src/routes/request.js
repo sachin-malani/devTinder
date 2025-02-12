@@ -36,7 +36,11 @@ route.post("/:status/:toUserId", userAuth, async (req, res) => {
     });
 
     await newConnectionRequest.save();
-    res.json({ message: `Connection Request sent to ${toUser.firstName}` });
+    if (status === "interested")
+      return res.json({
+        message: `Connection Request sent to ${toUser.firstName}`,
+      });
+    res.json({ message: `Ignored - ${toUser.firstName}` });
   } catch (error) {
     res.status(500).json({ err: error.message });
   }

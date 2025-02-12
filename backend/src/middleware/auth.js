@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../utils/validation");
 
 const userAuth = async (req, res, next) => {
   try {
@@ -8,7 +7,7 @@ const userAuth = async (req, res, next) => {
 
     if (!token) throw new Error("Invalid Token");
 
-    const decodedValue = await jwt.verify(token, JWT_SECRET);
+    const decodedValue = await jwt.verify(token, process.env.JWT_SECRET);
 
     req.id = decodedValue?.id;
     next();

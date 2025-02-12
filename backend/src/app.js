@@ -2,7 +2,8 @@ const express = require("express");
 const cookieparser = require("cookie-parser");
 const { connect } = require("./db/database");
 const app = express();
-const router = require("./routes/index")
+const router = require("./routes/index");
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cookieparser());
@@ -22,7 +23,7 @@ connect()
   .then(() => {
     console.log("Database Connected Successfully 🚀🚀🚀");
     app.listen(3000, () => {
-      console.log("Server up and running 🚀🚀");
+      console.log("Server up and running 🚀🚀, aFpgDPdOFzPpqYE7");
     });
   })
   .catch((err) => {
