@@ -45,21 +45,21 @@ route.post("/signup", async (req, res) => {
 route.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!validator.isEmail(email)) throw new Error("Invalid email");
+    if (!validator.isEmail(email)) return res.status(400).json({message: "Invalid email"});
 
-    const user = await User.findOne({ email: email }, "password");
+    const user = await User.findOne({ email: email });
 
-    if (!user) throw new Error("Invalid Credentials");
+    if (!user) return res.status(400).json({message: "Invalid Credentials"});
 
     const result = await user.verifyPassword(password);
-    if (!result) throw new Error("Invalid Credentials");
+    if (!result) return res.status(400).json({message: "Invalid Credentials"});
 
     const token = await user.getJWT();
 
     res.cookie("token", token);
-    res.send({ message: "Login Successfull" });
+    res.json(user);
   } catch (error) {
-    res.send({ err: error.message });
+    res.json({ message: error.message });
   }
 });
 

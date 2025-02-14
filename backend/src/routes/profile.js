@@ -11,7 +11,7 @@ route.get("/", userAuth, async (req, res) => {
 
     if (!user) throw new Error("Invalid User");
 
-    res.send(user);
+    res.json(user);
   } catch (error) {
     res.send({ err: error.message });
   }
