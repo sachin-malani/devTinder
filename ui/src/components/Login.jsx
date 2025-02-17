@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailId, setEmailId] = useState("sachin@gmail.com");
+  const [password, setPassword] = useState("hello@1234");
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setError("");
     try {
       const res = await axios.post(
         BASE_URL + "/login",
@@ -25,8 +26,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       navigate("/");
     } catch (error) {
-      setError(error?.response?.data?.message || "Something went wrong")
-      console.error(error);
+      setError(error?.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -52,7 +52,7 @@ const Login = () => {
                 <span className="label-text">Password</span>
               </div>
               <input
-                type="text"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input input-bordered w-full max-w-xs"
