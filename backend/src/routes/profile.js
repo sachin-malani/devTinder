@@ -30,7 +30,7 @@ route.delete("/remove", userAuth, async (req, res) => {
 route.patch("/update", userAuth, async (req, res) => {
   try {
     if (!isValidUpdateFields(req))
-      return res.send({ err: "Invalid Input, update denied" });
+      return res.status(400).json({ message: "Invalid Input, update denied" });
 
     //No Validation
     // const user = await User.findOne(id);
@@ -44,7 +44,7 @@ route.patch("/update", userAuth, async (req, res) => {
 
     res.json({ message: "Updated Successfully", result });
   } catch (error) {
-    res.status(500).send({ err: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

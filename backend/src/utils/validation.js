@@ -10,7 +10,13 @@ const isValidSignupForm = (req) => {
 };
 
 const isValidUpdateFields = (req) => {
-  const ALLOWED_UPDATES = ["about", "skills", "photoUrl"];
+  const ALLOWED_UPDATES = [
+    "firstName",
+    "lastName",
+    "about",
+    "skills",
+    "photoUrl",
+  ];
   const isValid = Object.keys(req.body).every((key) =>
     ALLOWED_UPDATES.includes(key)
   );
