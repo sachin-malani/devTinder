@@ -68,7 +68,7 @@ route.post("/review/:status/:requestId", userAuth, async (req, res) => {
 
     res.json({ message: "Connection request - " + status.toUpperCase() });
   } catch (error) {
-    res.status(500).json({ err: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
