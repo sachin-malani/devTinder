@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constant";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
+import Loader from "./Loader";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
@@ -21,6 +22,15 @@ const Feed = () => {
   useEffect(() => {
     if (!feed) getFeed();
   }, []);
+
+  if (!feed) return <Loader />;
+
+  if (feed.length === 0)
+    return (
+      <div className="text-center text-2xl font-bold text-white">
+        No Users Found
+      </div>
+    );
 
   return (
     feed && (
