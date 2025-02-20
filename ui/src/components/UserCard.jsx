@@ -4,7 +4,7 @@ import { BASE_URL } from "../utils/constant";
 import { useState } from "react";
 import { removeUser } from "../utils/feedSlice";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, isDisableButton }) => {
   const { _id, firstName, lastName, age, gender, photoUrl, about } = user;
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -23,12 +23,12 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className="card bg-base-300 w-96 shadow-xl">
+    <div className="card bg-base-300 w-96 shadow-xl mx-2">
       <figure className="w-full">
         <img
           src={photoUrl || null}
           alt="Profile Image"
-          className="w-full aspect-[4/3]"
+          className="w-full aspect-[4/3] object-cover"
         />
       </figure>
       <div className="card-body">
@@ -41,12 +41,14 @@ const UserCard = ({ user }) => {
         <div className="card-actions justify-center">
           <button
             className="btn btn-primary"
+            disabled={isDisableButton}
             onClick={() => sendRequest("ignored", _id)}
           >
             Ignore
           </button>
           <button
             className="btn btn-secondary"
+            disabled={isDisableButton}
             onClick={() => sendRequest("interested", _id)}
           >
             Interested

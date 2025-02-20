@@ -80,33 +80,35 @@ const Request = () => {
             return (
               <div
                 key={_id}
-                className="bg-base-300 flex gap-2 items-center p-2"
+                className="bg-base-300 flex gap-1 p-2 rounded-lg"
               >
                 <figure className="p-2">
                   <img
                     src={photoUrl}
                     alt="Photo"
-                    className="w-20 h-20 rounded-full"
+                    className="w-20 h-20 aspect-square object-cover rounded-full"
                   />
                 </figure>
-                <div>
-                  <p className="text-xl">{firstName + " " + lastName}</p>
-                  <p>{age + " " + gender}</p>
-                  <p>{about}</p>
-                </div>
-                <div className="flex flex-col md:flex-row gap-2 p-2">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => reviewRequest("rejected", _id)}
-                  >
-                    Reject
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => reviewRequest("accepted", _id)}
-                  >
-                    Accept
-                  </button>
+                <div className="flex-1">
+                  <div className="mx-2">
+                    <p className="text-xl">{firstName + " " + lastName}</p>
+                    <p>{age + " " + gender}</p>
+                    <p>{about}</p>
+                  </div>
+                  <div className="flex gap-2 m-2">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => reviewRequest("rejected", _id)}
+                    >
+                      Reject
+                    </button>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => reviewRequest("accepted", _id)}
+                    >
+                      Accept
+                    </button>
+                  </div>
                 </div>
               </div>
             );
