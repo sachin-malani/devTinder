@@ -109,7 +109,7 @@ const EditProfile = ({ user }) => {
         </div>
         <div className="flex  justify-center items-center">
           <UserCard
-            user={{ firstName, lastName, about, photoUrl, age, gender }}
+            user={{ firstName, lastName, about, photoUrl, age, gender }} isDisableButton={true}
           />
         </div>
       </div>
