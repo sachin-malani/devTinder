@@ -28,11 +28,13 @@ const Body = () => {
     if (!user) getUser();
   }, []);
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Outlet />
+      <div className="flex-1 overflow-auto">
+        <Outlet />
+      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
